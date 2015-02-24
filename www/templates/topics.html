@@ -1,0 +1,16 @@
+<ion-view view-title="Hackafe">
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="topic in topics" href="#/app/topic/{{topic.id}}">
+        <span class="title">{{topic.title}}</span>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll
+      ng-if="more_topics_url"
+      icon="ion-loading-c"
+      on-infinite="loadMore()"
+      distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

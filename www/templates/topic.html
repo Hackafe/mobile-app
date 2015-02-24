@@ -1,0 +1,12 @@
+<ion-view view-title="{{topic.title}}">
+  <ion-content class="topic single">
+    <h3><discourse-category category-id="topic.category_id" /></h3>
+    <ion-list>
+      <ion-item ng-repeat="post in topic.post_stream.posts" class="post">
+        <img ng-src="{{post.avatar_template | discourse_template}}" class="avatar" display="inline" />
+        <div class="content" ng-bind-html="post.cooked"></div>
+        <div class="clearfix"></div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

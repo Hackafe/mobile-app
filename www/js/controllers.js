@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['starter.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the login modal
@@ -33,16 +33,27 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.controller('TopicsCtrl', function($scope, Topic, $http) {
+  $scope.topics = [];
+  $scope.more_topics_url = '/latest.json';
+
+  $scope.loadMore = function() {
+    console.log('requesting more data', $scope.more_topics_url);
+    $http.get('http://frm.hackafe.org'+$scope.more_topics_url).then(function(response) {
+      console.log('topics', response);
+      var topic_list = response.data.topic_list;
+      $scope.topics = [].concat($scope.topics, topic_list.topics);
+      $scope.more_topics_url = topic_list.more_topics_url;
+
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    });
+  };
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('TopicCtrl', function($scope, $stateParams, Topic) {
+  console.log($stateParams);
+  Topic.get($stateParams.topicId).then(function(topic){
+    $scope.topic = topic.data;
+    console.log('topic = ', topic);
+  });
 });
