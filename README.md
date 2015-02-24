@@ -4,7 +4,7 @@ Hackafe Mobile App
 
 # Install
 
-To build, install coirdova, ionic and bower
+To build, install cordova, ionic and bower
 
     $ npm install -g cordova ionic bower
 
