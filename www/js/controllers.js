@@ -1,6 +1,6 @@
-angular.module('starter.controllers', ['starter.services'])
+angular.module('starter.controllers', ['starter.services', 'ngCordova'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, PushNotifications) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -24,6 +24,14 @@ angular.module('starter.controllers', ['starter.services'])
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
+
+    PushNotifications.register().then(function(){
+      console.log('push notifications success', arguments);
+    }, function() {
+      console.log('push notifications error', arguments);
+    }, function() {
+      console.log('push notifications notify', arguments);
+    });
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system

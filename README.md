@@ -10,7 +10,8 @@ To build, install cordova, ionic and bower
 
 Then run
 
-    $ ionic platform add android
     $ bower install
+    $ ionic platform add android
+    $ ionic plugin add https://github.com/phonegap-build/PushPlugin
     $ ionic build android
     $ ionic emulate android
