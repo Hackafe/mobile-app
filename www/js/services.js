@@ -123,4 +123,25 @@ angular.module('starter.services', [])
 
 })
 
+.factory('PushServer', function($http) {
+  return {
+    subscribe: function(token, user) {
+      if (!token) return;
+      user = user || 'anonymous';
+      var type;
+      if (ionic.Platform.isAndroid())
+        type = 'android';
+      else if (ionic.Platform.isIOS())
+        type = 'ios';
+      else
+        return;
+      return $http.post('http://frm.hackafe.org:8080/subscribe', {
+        user: user,
+        type: type,
+        token: token,
+      });
+    }
+  }
+})
+
 ;

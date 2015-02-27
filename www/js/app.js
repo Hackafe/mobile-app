@@ -4,11 +4,11 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.filters', 'starter.directives'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.filters', 'starter.directives', 'starter.services'])
 
 .value('GCM_PROJECT_ID', '17454725011')
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, PushNotifications, PushServer) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,6 +19,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.filters', 's
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    PushNotifications.register().then(function(data){
+      console.log('push notifications request success', data);
+      PushServer.subscribe(data.token).then(function(res){
+        console.log('push notification register success', res);
+      }, function(err) {
+        console.log('push notification register error', err);
+      });
+    }, function(err) {
+      console.log('push notifications request error', err);
+    }, function(info) {
+      console.log('push notifications request notify', info);
+    });
   });
 })
 

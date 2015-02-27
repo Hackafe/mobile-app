@@ -25,14 +25,6 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
 
-    PushNotifications.register().then(function(){
-      console.log('push notifications success', arguments);
-    }, function() {
-      console.log('push notifications error', arguments);
-    }, function() {
-      console.log('push notifications notify', arguments);
-    });
-
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
     $timeout(function() {
